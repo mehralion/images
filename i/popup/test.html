@@ -1,0 +1,91 @@
+<html>
+<head>
+<title>Zero Clipboard Test</title>
+<script type="text/javascript">
+//<![CDATA[
+try{if (!window.CloudFlare) {var CloudFlare=[{verbose:0,p:0,byc:0,owlid:"cf",bag2:1,mirage2:0,oracle:0,paths:{cloudflare:"/cdn-cgi/nexp/dok3v=1613a3a185/"},atok:"e7982121fe023aee09a3cfd00d2bc17d",petok:"2cfc2e55c5b8fbe512fb723d123d40d26f1f0299-1484091498-1800",zone:"oldbk.com",rocket:"0",apps:{"ga_key":{"ua":"UA-17715832-1","ga_bs":"2"}}}];!function(a,b){a=document.createElement("script"),b=document.getElementsByTagName("script")[0],a.async=!0,a.src="//ajax.cloudflare.com/cdn-cgi/nexp/dok3v=f2befc48d1/cloudflare.min.js",b.parentNode.insertBefore(a,b)}()}}catch(e){};
+//]]>
+</script>
+<style type="text/css">body{font-family:arial,sans-serif;font-size:9pt;}.my_clip_button{width:150px;text-align:center;border:1px solid black;background-color:#ccc;margin:10px;padding:10px;cursor:default;font-size:9pt;}.my_clip_button.hover{background-color:#eee;}.my_clip_button.active{background-color:#aaa;}</style>
+<script type="text/javascript" src="ZeroClipboard.js"></script>
+<script language="JavaScript">
+		var clip = null;
+		
+		function $(id) { return document.getElementById(id); }
+		
+		function init() {
+			clip = new ZeroClipboard.Client();
+			clip.setHandCursor( true );
+			
+			clip.addEventListener('load', my_load);
+			clip.addEventListener('mouseOver', my_mouse_over);
+			clip.addEventListener('complete', my_complete);
+			
+			clip.glue( 'd_clip_button' );
+		}
+		
+		function my_load(client) {
+			debugstr("Flash movie loaded and ready.");
+		}
+		
+		function my_mouse_over(client) {
+			// we can cheat a little here -- update the text on mouse over
+			clip.setText( $('fe_text').value );
+		}
+		
+		function my_complete(client, text) {
+			debugstr("Copied text to clipboard: " + text );
+		}
+		
+		function debugstr(msg) {
+			var p = document.createElement('p');
+			p.innerHTML = msg;
+			$('d_debug').appendChild(p);
+		}
+	</script>
+<script type="text/javascript">
+/* <![CDATA[ */
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-17715832-1']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+(function(b){(function(a){"__CF"in b&&"DJS"in b.__CF?b.__CF.DJS.push(a):"addEventListener"in b?b.addEventListener("load",a,!1):b.attachEvent("onload",a)})(function(){"FB"in b&&"Event"in FB&&"subscribe"in FB.Event&&(FB.Event.subscribe("edge.create",function(a){_gaq.push(["_trackSocial","facebook","like",a])}),FB.Event.subscribe("edge.remove",function(a){_gaq.push(["_trackSocial","facebook","unlike",a])}),FB.Event.subscribe("message.send",function(a){_gaq.push(["_trackSocial","facebook","send",a])}));"twttr"in b&&"events"in twttr&&"bind"in twttr.events&&twttr.events.bind("tweet",function(a){if(a){var b;if(a.target&&a.target.nodeName=="IFRAME")a:{if(a=a.target.src){a=a.split("#")[0].match(/[^?=&]+=([^&]*)?/g);b=0;for(var c;c=a[b];++b)if(c.indexOf("url")===0){b=unescape(c.split("=")[1]);break a}}b=void 0}_gaq.push(["_trackSocial","twitter","tweet",b])}})})})(window);
+/* ]]> */
+</script>
+</head>
+<body onLoad="init()">
+<h1>Zero Clipboard Test</h1>
+<p><script>document.write("Your browser: " + navigator.userAgent);</script></p>
+<table width="100%">
+<tr>
+<td width="50%" valign="top">
+ 
+<table>
+<tr>
+<td align="right"><b>Text:</b></td>
+<td align="left"><textarea id="fe_text" cols=50 rows=5 onChange="clip.setText(this.value)">Copy me!</textarea></td>
+</tr>
+</table>
+<br/>
+<div id="d_clip_button" class="my_clip_button"><b>Copy To Clipboard...</b></div>
+</td>
+<td width="50%" valign="top">
+ 
+<div id="d_debug" style="border:1px solid #aaa; padding: 10px; font-size:9pt;">
+<h3>Debug Console:</h3>
+</div>
+</td>
+</tr>
+</table>
+<br/><br/>
+You can paste text here if you want, to make sure it worked:<br/>
+<textarea id="testarea" cols=50 rows=10></textarea><br/>
+<input type=button value="Clear Test Area" onClick="$('testarea').value = '';"/>
+</body>
+</html>
